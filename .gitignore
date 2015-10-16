@@ -1,3 +1,3 @@
-.meteor/local
-.meteor/platforms
-.meteor/versions
+.meteor/
+!.meteor/packages
+!.meteor/release
