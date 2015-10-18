@@ -49,7 +49,7 @@ describe('createListItem', function() {
       });
     });
 
-    it("shouldn't  todoItem is not a string", function(done){
+    it("shouldn't  todoName is not a string", function(done){
       var todoName = "";
       var currentList = 45;
       var err = "Match failed";
@@ -57,6 +57,36 @@ describe('createListItem', function() {
       Meteor.call("createListItem", todoName, currentList, function(error, result){
         expect(error.reason).toBe(err);
         expect(Todos.insert).not.toHaveBeenCalled();
+        done();
+      });
+    });
+  });
+
+  describe('updateListItem', function() {
+
+    beforeEach(function(){
+      spyOn(Todos, "update");
+    });
+
+    it("shouldn't update list item if not registered", function(done) {
+      var todoItem = "";
+      var documentId = "";
+      var err = "not-logged-in";
+      
+      Meteor.call("updateListItem", documentId, todoItem,function(error, result){
+        expect(error.error).toBe(err);
+        expect(Todos.update).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it("shouldn't todoItem is not a string", function(done){
+      var todoItem = 45;
+      var err = "Match failed";
+
+      Meteor.call("updateListItem", todoItem,function(error, result){
+        expect(error.reason).toBe(err);
+        expect(Todos.update).not.toHaveBeenCalled();
         done();
       });
     });
