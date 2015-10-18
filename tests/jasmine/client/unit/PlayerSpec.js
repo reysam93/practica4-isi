@@ -31,4 +31,35 @@ describe('Meteor methods', function() {
 
   });
 
+describe('createListItem', function() {
+
+    beforeEach(function(){
+      spyOn(Todos, "insert");
+    });
+
+    it("shouldn't create list item if not registered", function(done) {
+      var todoName = "";
+      var currentList = ""
+      var err = "not-logged-in";
+      
+      Meteor.call("createListItem", todoName, currentList,function(error, result){
+        expect(error.error).toBe(err);
+        expect(Todos.insert).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it("shouldn't  todoItem is not a string", function(done){
+      var todoName = "";
+      var currentList = 45;
+      var err = "Match failed";
+
+      Meteor.call("createListItem", todoName, currentList, function(error, result){
+        expect(error.reason).toBe(err);
+        expect(Todos.insert).not.toHaveBeenCalled();
+        done();
+      });
+    });
+  });
+
 });

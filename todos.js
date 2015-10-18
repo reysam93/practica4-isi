@@ -114,7 +114,7 @@ if (Meteor.isServer){
 				createdBy: currentUser
 			}
 			if(!currentUser){
-				throw new Meteor.Error("not-legged-in", "You're not logged");
+				throw new Meteor.Error("not-logged-in", "You're not logged");
 			}
 			Todos.update(data, {$set: {name: todoItem}})
 		},
