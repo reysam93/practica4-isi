@@ -92,4 +92,23 @@ describe('createListItem', function() {
     });
   });
 
+  describe('removeListItem', function() {
+
+    beforeEach(function(){
+      spyOn(Todos, "remove");
+    });
+
+    it("shouldn't remove list item if not registered", function(done) {
+      var documentId = "";
+      var err = "not-logged-in";
+      
+      Meteor.call("removeListItem", documentId,function(error, result){
+        expect(error.error).toBe(err);
+        expect(Todos.remove).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+  });
+
 });
