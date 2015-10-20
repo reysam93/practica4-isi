@@ -180,16 +180,16 @@ if (Meteor.isClient){
 
   Template.addTodo.events({
     'submit form': function(event){
-    event.preventDefault();
-    var todoName = $('[name="todoName"]').val();
-    var currentList = this._id;
-    Meteor.call('createListItem', todoName, currentList, function(error){
-        if(error){
-            console.log(error.reason);
-        } else {
-            $('[name="todoName"]').val('');
-        }
-    });
+      event.preventDefault();
+      var todoName = $('[name="todoName"]').val();
+      var currentList = this._id;
+      Meteor.call('createListItem', todoName, currentList, function(error){
+          if(error){
+              console.log(error.reason);
+          } else {
+              $('[name="todoName"]').val('');
+          }
+      });
     }
   });
 

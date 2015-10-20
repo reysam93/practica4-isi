@@ -1,4 +1,4 @@
-describe("CreateListItemSpec", function(){
+describe("CreateListItem", function(){
 
 	beforeAll(function(done){
 		Meteor.call('clearDB', function(){
@@ -34,6 +34,32 @@ describe("CreateListItemSpec", function(){
 			}, 500);
 		});
 
-	});
+		it("shouldn't add a new item if list id is null", function(){
+			var itemName = "New Item";
 
+			$("[name=todoName]").val(itemName);
+			$("form.addTodo").submit();
+			setTimeout(function(){
+				expect(Todos.findOne({name: itemName})).toBeFalsy();
+			}, 100);
+		});
+
+		it("should add a new item with the name given", function(){
+			var itemName = "New Item";
+			var listName = "New List";
+
+			$('[name="listName"]').val(listName); 
+		    $('#formList').submit();
+		    setTimeout(function(){
+		        expect(Lists.findOne({name:listName})).toBeTruthy();
+
+		        $("[name=todoName]").val(itemName);
+				$("form.addTodo").submit();
+				setTimeout(function(){
+					expect(Todos.findOne({name: itemName})).toBeTruthy();
+					done();
+				}, 100);
+		    }, 100);
+		});
+	});
 });
