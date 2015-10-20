@@ -1,4 +1,11 @@
 describe('createNewList', function() {
+    beforeAll(function(done){
+      Meteor.call('clearDB', function(){
+        Meteor.call('loadFixtures');
+        done();
+      });
+
+    })
     beforeEach(function(done){
       Meteor.loginWithPassword("pepe@gmail.com", "mipassword", function(err){
         Tracker.afterFlush(done);
@@ -20,6 +27,12 @@ describe('createNewList', function() {
       }, 500);
     });
     it("shouldn't add a new list if not registered",function(done){
-
+      Meteor.logout(function() {
+          Tracker.afterFlush(function(){
+            expect($('#formList').html()).toBe(undefined);
+            done();
+          });
+      });
+        
     });
 });
