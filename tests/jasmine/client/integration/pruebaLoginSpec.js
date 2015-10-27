@@ -1,4 +1,4 @@
-describe("testing login and logout", function(){
+/*describe("testing login and logout", function(){
   beforeEach(function(done){
     Meteor.loginWithPassword("pepe@gmail.com", "mipassword", function(err){
       Tracker.afterFlush(done);
@@ -14,4 +14,4 @@ describe("testing login and logout", function(){
     var user = Meteor.user();
     expect(user).not.toBe(null);
   });
-});
+});*/

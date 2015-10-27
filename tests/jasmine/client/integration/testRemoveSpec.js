@@ -31,6 +31,7 @@ describe('removeListItem', function() {
         setTimeout(function(){
             $("[name=todoName]").val(itemName);
             $("form.addTodo").submit();
+            done();
         }, 100);
 
         setTimeout(function(){
@@ -55,9 +56,7 @@ describe('removeListItem', function() {
         setTimeout(function(){
             $("[name=todoName]").val(itemName);
             $("form.addTodo").submit();
-            setTimeout(function(){
-                done();
-            }, 100);
+            
         }, 100);
 
         setTimeout(function(){
