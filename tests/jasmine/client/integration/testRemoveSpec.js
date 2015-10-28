@@ -12,70 +12,64 @@ describe('removeListItem', function() {
       });
     });
 
-    it("shouldn't remove a list item  if the list is empty", function(done) {
+    it("shouldn't remove a list item  if the list is empty", function() {
         
-        setTimeout(function(){
-            expect(Todos.find().count()).toBe(0)
-            done();
-        }, 500);
-       expect($('.delete-todo').html()).toBe(undefined);
+     
+        expect(Todos.find().count()).toBe(0)
+        expect($('.delete-todo').html()).toBe(undefined);
+       
 
     });
     it("should remove a list item ", function(done) {
 
         var listName = "list_1";
         var itemName = "task_1";
-        
+
         $('[name="listName"]').val(listName); 
         $('#formList').submit();
         setTimeout(function(){
+            expect(Lists.findOne({name:listName})).toBeTruthy();
+
             $("[name=todoName]").val(itemName);
             $("form.addTodo").submit();
-            done();
+            setTimeout(function(){
+                expect(Todos.findOne({name: itemName})).toBeTruthy(); 
+            }, 100);
+        }, 300);
+    
+         
+        $('.delete-todo').click();
+        setTimeout(function(){
+                expect(Todos.findOne({name: itemName})).toBeFalsy();
+                done();     
         }, 100);
 
-        setTimeout(function(){
-            expect(Todos.findOne({name: itemName})).toBeTruthy();
-            done();
-        }, 500);
-
-        $('.delete-todo').click();
-        
-        setTimeout(function(){
-            expect(Todos.findOne({name: itemName})).toBeFalsy()
-            done();
-        }, 500);
+       
+       
     });
+
     it("shouldn't remove a list item if not registered",function(done){
 
         var listName = "list_2";
         var itemName = "task_2";
         
-        $('[name="listName"]').val(listName); 
+         $('[name="listName"]').val(listName); 
         $('#formList').submit();
         setTimeout(function(){
+            expect(Lists.findOne({name:listName})).toBeTruthy();
             $("[name=todoName]").val(itemName);
             $("form.addTodo").submit();
-            
-        }, 100);
-
-        setTimeout(function(){
-            expect(Todos.findOne({name: itemName})).toBeTruthy();
-            done();
-        }, 500);
-
+            setTimeout(function(){
+                expect(Todos.findOne({name: itemName})).toBeTruthy(); 
+            }, 100);
+        }, 300);
         Meteor.logout(function() {
             Tracker.afterFlush(function(){
                 expect($('.delete-todo').html()).toBe(undefined);
                 done();
+                
             });
-        });
-
-         setTimeout(function(){
-            expect(Todos.findOne({name: itemName})).toBeFalsy()
-            done();
-        }, 500);
-        
+        }); 
         
     });
 
