@@ -12,7 +12,7 @@
 
 <template name="todoItem">
     <li class="{{checked}}">
-        <input type="checkbox" {{checked}}>  <!--sincroniza con la base de datos-->
+        <input type="checkbox" id ="check" {{checked}}>  <!--sincroniza con la base de datos-->
     	<input type="text" value="{{name}}" name="todoItem">
     	[<a href="#" class="delete-todo">Delete</a>]
     </li>
