@@ -44,7 +44,7 @@ describe("CreateListItem", function(){
 			}, 100);
 		});
 
-		/*it("should add a new item with the name given", function(){
+		it("should add a new item with the name given", function(done){
 			var itemName = "New Item";
 			var listName = "New List";
 
@@ -59,7 +59,7 @@ describe("CreateListItem", function(){
 					expect(Todos.findOne({name: itemName})).toBeTruthy();
 					done();
 				}, 100);
-		    }, 100);
-		});*/
+		    }, 200);
+		});
 	});
 });
